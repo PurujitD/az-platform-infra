@@ -1,3 +1,10 @@
 secret.md
 backend.conf
 .env
+.terraform/
+.tfstate
+.tfstate.backup
+.tfvars
+terraform.tfvars
+main.plan
+.terraform.lock.hcl
