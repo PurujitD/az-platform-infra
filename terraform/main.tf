@@ -17,11 +17,11 @@ resource "azurerm_static_web_app" "AStaticSite" {
 
 resource "azurerm_static_web_app_custom_domain" "customdomain746" {
   static_web_app_id = azurerm_static_web_app.AStaticSite.id
-  domain_name       = "746000.xyz"
+  domain_name       = var.domainName
   validation_type   = "dns-txt-token"
 }
 
-resource "cloudflare_dns_record" "example_dns_record" {
+resource "cloudflare_dns_record" "example_TXT_record" {
   zone_id = var.zoneId
   name = var.custDomain
   ttl = 3600
@@ -29,4 +29,17 @@ resource "cloudflare_dns_record" "example_dns_record" {
   comment = "Domain verification record"
   content = azurerm_static_web_app_custom_domain.customdomain746.validation_token
   proxied = false
+  depends_on = [ azurerm_static_web_app_custom_domain.customdomain746 ]
  }
+
+ resource "cloudflare_dns_record" "example_CNAME_record" {
+  zone_id = var.zoneId
+  name = var.custDomain
+  ttl = 1
+  type = "CNAME"
+  comment = "CNAME record for Azure Static Web App"
+  content = azurerm_static_web_app.AStaticSite.default_host_name
+  proxied = true
+  depends_on = [ azurerm_static_web_app_custom_domain.customdomain746 ]
+ }
+ 

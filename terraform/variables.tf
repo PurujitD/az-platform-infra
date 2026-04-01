@@ -30,6 +30,10 @@ variable "custDomain" {
   type = string
 }
 
+variable "domainName" {
+  type = string
+}
+
 variable "zoneId" {
   type = string
   sensitive = true
