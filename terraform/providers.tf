@@ -7,6 +7,11 @@ terraform {
     cloudflare = {
       source  = "cloudflare/cloudflare"
       version = "5.19.0-beta.4"
+
+    }
+    github = {
+      source  = "integrations/github"
+      version = "6.11.1"
     }
   }
 }
@@ -22,5 +27,10 @@ provider "azurerm" {
 
 provider "cloudflare" {
     api_token = var.cf_api_token
+  # Configuration options
+}
+
+provider "github" {
+    token = var.github_repo_token
   # Configuration options
 }
