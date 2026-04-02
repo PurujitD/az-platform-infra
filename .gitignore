@@ -8,3 +8,4 @@ backend.conf
 terraform.tfvars
 main.plan
 .terraform.lock.hcl
+*.log
